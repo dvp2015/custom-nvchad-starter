@@ -4,6 +4,9 @@ require "nvchad.options"
 local o = vim.o
 -- o.cursorlineopt ='both' -- to enable cursorline!
 
+o.colorcolumn="110"
+
+
 -- https://github.com/Wansmer/langmapper.nvim
 local function escape(str)
   -- You need to escape these characters to work correctly
