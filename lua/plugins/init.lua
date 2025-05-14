@@ -1,8 +1,70 @@
+--@type NvPluginSpec
+
+-- mostly borrowed from https://github.com/siduck/dotfiles/blob/master/nvim/lua/plugins/init.lua
+
 return {
+
+  --------------------------------------- default plugins -----------------------------------------
+
+  {
+    "rachartier/tiny-glimmer.nvim",
+    keys = { "u", "<c-r>" },
+    opts = {
+      overwrite = {
+        redo = {
+          enabled = true,
+          default_animation = {
+            settings = {
+              from_color = "DiffAdd",
+            },
+          },
+        },
+
+        undo = {
+          enabled = true,
+          default_animation = {
+            settings = {
+              from_color = "DiffDelete",
+            },
+          },
+        },
+      },
+    },
+  },
+
+  {
+    "nvzone/typr",
+    cmd = { "Typr", "TyprStats" },
+    opts = {
+      wpm_goal = 120,
+      stats_filepath = vim.fn.stdpath "data" .. "/config",
+    },
+  },
+  { "nvzone/volt", lazy = true },
+  { 
+    "nvzone/minty",
+    cmd = {"Shades", "Huefy"}
+  },
+  { "nvzone/showkeys", cmd = "ShowkeysToggle" },
+  {
+    "nvzone/timerly",
+    opts = {
+      on_start = function()
+        vim.notify "Timerly started"
+      end,
+      on_finish = function()
+        vim.cmd "silent !doas rtcwake -s 300 -m mem"
+      end,
+    },
+    cmd = "TimerlyToggle",
+  },
+
   {
     "stevearc/conform.nvim",
-    -- event = 'BufWritePre', -- uncomment for format on save
-    opts = require "configs.conform",
+    event = 'BufWritePre',
+    opts = function()
+        return require "configs.conform"
+    end,
   },
 
   -- These are some examples, uncomment them if you want to see them work!
@@ -53,13 +115,78 @@ return {
     end,
   },
 
-  -- {
-  -- 	"nvim-treesitter/nvim-treesitter",
-  -- 	opts = {
-  -- 		ensure_installed = {
-  -- 			"vim", "lua", "vimdoc",
-  --      "html", "css"
-  -- 		},
-  -- 	},
-  -- },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
+      ensure_installed = {
+        "vim",
+        "html",
+        "css",
+        "javascript",
+        "json",
+        "toml",
+        "markdown",
+        "c",
+        "bash",
+        "lua",
+        "tsx",
+        "typescript",
+        "rust",
+      },
+    },
+    dependencies = {
+      {
+        "windwp/nvim-ts-autotag",
+        config = function()
+          require("nvim-ts-autotag").setup()
+        end,
+      },
+    },
+  },
+  --------------------------------------------- custom plugins ----------------------------------------------
+  -- smooth scroll
+  {
+    "karb94/neoscroll.nvim",
+    keys = { "<C-d>", "<C-u>" },
+    config = function()
+      require("neoscroll").setup {}
+    end,
+  },
+
+  { "folke/trouble.nvim", cmd = "Trouble", opts = {} },
+  { "elkowar/yuck.vim", ft = "yuck", dependencies = "gpanders/nvim-parinfer" },
+
+  {
+    "nvim-telescope/telescope.nvim",
+    opts = {
+      extensions = {
+        fzf = {
+          fuzzy = true,
+          override_generic_sorter = true,
+          override_file_sorter = true,
+          case_mode = "smart_case",
+        },
+      },
+    },
+
+    dependencies = {
+      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+      { "2kabhishek/nerdy.nvim" },
+    },
+  },
+
+  { "jbyuki/venn.nvim", cmd = "VBox" },
+
+  { import = "nvchad.blink.lazyspec" },
+
+  {
+    "OXY2DEV/markview.nvim",
+    ft = { "markdown", "codecompanion" },
+    opts = {
+      preview = {
+        filetypes = { "md", "markdown", "codecompanion" },
+      },
+    },
+  },
+  
 }
