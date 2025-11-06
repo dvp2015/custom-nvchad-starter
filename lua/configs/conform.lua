@@ -1,8 +1,23 @@
 local options = {
   formatters_by_ft = {
     lua = { "stylua" },
-    -- css = { "prettier" },
-    -- html = { "prettier" },
+
+    -- webdev
+    javascript = { "biome" },
+    javascriptreact = { "biome" },
+    typescript = { "biome" },
+    typescriptreact = { "biome" },
+
+    css = { "biome" },
+    html = { "biome" },
+    json = { "biome" },
+    jsonc = { "biome" },
+    svelte = { "deno_fmt" },
+    
+    --other
+    sh = { "shfmt" },
+    yaml = { "yamlfmt" },
+	
   },
 
   -- format_on_save = {
