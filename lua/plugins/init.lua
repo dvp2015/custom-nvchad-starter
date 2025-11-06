@@ -75,6 +75,9 @@ return {
     end,
   },
 
+  -- test new blink
+  -- { import = "nvchad.blink.lazyspec" },
+
   -- {
   --   'Wansmer/langmapper.nvim',
   --   lazy = false,

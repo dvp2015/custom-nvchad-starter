@@ -25,6 +25,12 @@ M.nvdash = {
   },
 }
 
+M.ui = {
+      tabufline = {
+      lazyload = false
+   }
+}
+
 M.term = {
   base46_colors = true,
 }
